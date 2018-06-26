@@ -5,14 +5,14 @@ The main code where the analysis, categorization, .. are done is FinalSelection2
 
 This code is complied using the following command:
 
-./Make.sh FinalSelection2D_relaxedFR.cc   
+    ./Make.sh FinalSelection2D_relaxedFR.cc   
 
 and the executable is called 'FinalSelection2D_relaxedFR.exe'. If there is any error, no executable will be produced.
 
 
 To run the nominal and shape uncertainties, one should edit the following python script:
 
-python   onerun_SCRIPT.py
+    python   onerun_SCRIPT.py
 
 In this script one should provide the location of the input files and the directory for output files  [note: these can be provided as the argument as will. This is in TODO list]
 
@@ -100,7 +100,7 @@ and copy the 'htt_tt.inputs-sm-13TeV-2D.root' file from last step in the shapes/
 
     cd bin 
 
-MorphingSM2017 --output_folder="TestJune26" --postfix="-2D" --control_region=0 --manual_rebin=false --real_data=false --mm_fit=false --ttbar_fit=false
+    MorphingSM2017 --output_folder="TestJune26" --postfix="-2D" --control_region=0 --manual_rebin=false --real_data=false --mm_fit=false --ttbar_fit=false
 
 
 # Now you have to add the autoMCStats at the end of the each datacards
@@ -138,28 +138,24 @@ MorphingSM2017 --output_folder="TestJune26" --postfix="-2D" --control_region=0 -
 
 # run MaxLikelihoodFit
 
-    combine -M MaxLikelihoodFit cmb/125/workspace.root --robustFit=1 --minimizerAlgoForMinos=Minuit2,Migrad  --rMin 0.5 --rMax 1.5 
+    combine -M FitDiagnostics cmb/125/workspace.root --robustFit=1 --minimizerAlgoForMinos=Minuit2,Migrad  --rMin 0.5 --rMax 1.5 
 
 
-
-# making the pulls
-
-    python ../../../../../HiggsAnalysis/CombinedLimit/test/diffNuisances.py  mlfit.root -A -a --stol 0.99 --stol 0.99 --vtol 99. --vtol2 99. -f text mlfit.root > mlfit.txt
 
 
 # postfit plots
 
-    PostFitShapes -o postfit_shapes.root -m 125 -f mlfit.root:fit_s --postfit --sampling --print -d cmb/125/combined.txt.cmb
+    PostFitShapesFromWorkspace -o postfit_shapes.root -m 125 -f mlfit.root:fit_s --postfit --sampling --print -d cmb/125/combined.txt.cmb  --workspace workspace.root 
 
 
 
 # Computing the expected significance:
 
-    [PreFit Asimov]combine -M ProfileLikelihood --significance cmb/125/workspace.root -t -1 --expectSignal=1
+    [PreFit Asimov]combine -M Significance --significance cmb/125/workspace.root -t -1 --expectSignal=1
 
-    [PostFit Asimov]combine -M ProfileLikelihood --significance cmb/125/workspace.root -t -1 --toysFrequentist --expectSignal 1
+    [PostFit Asimov]combine -M Significance --significance cmb/125/workspace.root -t -1 --toysFrequentist --expectSignal 1
 
-    [PostFit]combine -M ProfileLikelihood --significance cmb/125/workspace.root 
+    [PostFit]combine -M Significance --significance cmb/125/workspace.root 
 
 
 # Descripton of running the likelihood 
