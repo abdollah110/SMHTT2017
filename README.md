@@ -1,64 +1,108 @@
 # SMHTT2017
 
 
-To run on the root file:
+The main code where the analysis, categorization, .. are done is FinalSelection2D_relaxedFR.cc
 
-sh onerun.sh
+This code is complied using the following command:
 
-To run for Zpt uncertainty up:
-
-sh onerun_ZShape_Up.sh
+./Make.sh FinalSelection2D_relaxedFR.cc   and the executable is called 'FinalSelection2D_relaxedFR.exe'. If there is any error, no executable will be produced.
 
 
-To run for Zpt uncertainty Down:
+To run the nominal and shape uncertainties, one should edit the following python script:
 
-sh onerun_ZShape_Down.sh
+python   onerun_SCRIPT.py
 
-Finally 'hadd' these three files:
+In this script one should provide the location of the input files and the directory for output files  [note: these can be provided as the argument as will. This is in TODO list]
 
-hadd htt_tt.inputs-sm-13TeV-2D.root  final_nominal.root  files_nominal_Z_Up.root   files_nominal_Z_Down.root  
+Once the above script is run and .txt file is generated. Please check the contect of the 'OneRun.txt' before running that.
+
+# running the .txt script
+
+source  OneRun.txt
 
 
-
+The Final Grand Hadded file here is called 'htt_tt.inputs-sm-13TeV-2D.root'. This root file will be the input the limit calculation business! You need to copy it in the the '/shapes/USCMS/' directory in the combine Harvester
 
 
 # Link to the CombineHarvester twiki:
 [CombineHarvester twiki](http://cms-analysis.github.io/CombineHarvester/index.html)
 
 
-# Checkout the CombineHarvester
-export SCRAM_ARCH=slc6_amd64_gcc481 (bash) or  setnev SCRAM_ARCH slc6_amd64_gcc481 (tcsh)
-scram project CMSSW CMSSW_7_4_7
-cd CMSSW_7_4_7/src
+# Checkout the CombineHarvester  [You need to do it once]
+
+export SCRAM_ARCH=slc6_amd64_gcc530
+scram project CMSSW CMSSW_8_1_0
+cd CMSSW_8_1_0/src
 cmsenv
 git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
-//Check the recommended tag on link above, a tag &gt;= v5.0.2 is sufficient
-cd HiggsAnalysis/CombinedLimit
-git fetch origin
-git checkout v6.3.1
-cd ../..
+# IMPORTANT: Checkout the recommended tag on the link above  (for the time being the master is fine)
 git clone https://github.com/cms-analysis/CombineHarvester.git CombineHarvester
-cd CombineHarvester
-git checkout SM2016-dev
 scram b -j 8
 
 
+cd CombineHarvester
 
-#Get the shape
-cd CombineHarvester/HTTSM2016
-git clone https://:@gitlab.cern.ch:8443/cms-htt/SM-PAS-2016.git shapes  (from lxplus)
-git clone https://gitlab.cern.ch/cms-htt/SM-PAS-2016.git shapes      (from elsewhere)
-git pull --rebase 
+
+# Just clone 2016 to make 2017
+cp -r  HTTSM2016 HTTSM2017
+
+
+# put the new .cc file in the /src/ directory
+
+wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/src/HttSystematics_SMRun2.cc
+
+mv HttSystematics_SMRun2.cc   src/
+
+# put the new .cpp file and .xml in the /bin/ directory
+
+wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/bin/MorphingSM2017.cpp
+
+mv  MorphingSM2017.cpp bin/ 
+
+
+wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/bin/BuildFile.xml 
+
+mv  BuildFile.xml   bin/
+
+
+# This small script is needed to add autoMCStats  at the end of datacard:
+
+wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/bin/_do_mc_Stat.sh
+
+mv  _do_mc_Stat.sh   bin/
+
+
+
+# craete a shape directory 
+
+mkdir -p shapes/USCMS
+
+and copy the 'htt_tt.inputs-sm-13TeV-2D.root' file from last step in the shapes/USCMS directory
+
+
+# compile
+
+scram b -j 8
+
+(Note: whenever you change .cc or .cpp or .cml file you need to compile)
 
 # creating datacards
 
-MorphingSM2016 --output_folder="Blinded25112016" --postfix="-2D" --control_region=1 --manual_rebin=false --real_data=false --mm_fit=false --ttbar_fit=true
+cd bin 
 
+MorphingSM2017 --output_folder="TestJune26" --postfix="-2D" --control_region=0 --manual_rebin=false --real_data=false --mm_fit=false --ttbar_fit=false
+
+
+# Now you have to add the autoMCStats at the end of the each datacards
+
+sh _do_mc_Stat.sh  output/TestJune26
 
 # Building the workspaces:
 
-cd output/Blinded25112016
-combineTool.py -M T2W -i {cmb,em,et,mt,tt}/* -o workspace.root --parallel 18
+cd output/TestJune26
+combineTool.py -M T2W -i {cmb,tt}/* -o workspace.root --parallel 18
+
+(note:  cmb is just the combbination of all final state. For the time being it will be identical to tt)
 
 
 # Calculating limits:
@@ -104,6 +148,9 @@ PostFitShapes -o postfit_shapes.root -m 125 -f mlfit.root:fit_s --postfit --samp
 [PostFit]combine -M ProfileLikelihood --significance cmb/125/workspace.root 
 
 
+# Descripton of running the likelihood 
+
+https://github.com/cms-analysis/CombineHarvester/blob/SM2016-dev/HTTSM2016/scripts/statBreakDown.sh
 
 
 
