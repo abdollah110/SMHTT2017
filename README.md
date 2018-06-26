@@ -162,8 +162,22 @@ PostFitShapes -o postfit_shapes.root -m 125 -f mlfit.root:fit_s --postfit --samp
 
 
 # Descripton of running the likelihood 
+cp ../../../scripts/plot1DScan.py .
 
-https://github.com/cms-analysis/CombineHarvester/blob/SM2016-dev/HTTSM2016/scripts/statBreakDown.sh
+cp ../../../scripts/texName.json .
+
+combine -M MultiDimFit -m 125 --algo grid --points 101 --rMin 0 --rMax 10 cmb/125/workspace.root -n nominal -t -1 --expectSignal
+
+combine -M MultiDimFit --algo none --rMin 0 --rMax 10 cmb/125/workspace.root -m 125 -n bestfit -t -1 --expectSignal --saveWorkspace
+
+combine -M MultiDimFit --algo grid --points 101 --rMin 0 --rMax 10 -m 125 -n stat higgsCombinebestfit.MultiDimFit.mH125.root -t -1 --expectSignal --snapshotName MultiDimFit --freezeParameters all --fastScan
+
+python ./plot1DScan.py --main higgsCombinenominal.MultiDimFit.mH125.root --POI r -o cms_output_freeze_All --others 'higgsCombinestat.MultiDimFit.mH125.root:Freeze all:2' --breakdown syst,stat
+
+
+
+
+
 
 
 

@@ -69,6 +69,11 @@ outF.write("\n ./Make.sh FinalSelection2D_relaxedFR.cc \n")
 ####################################################
 #Location of the output nominal root files
 OutDir='files_nominal/'
+if not os.path.exists(OutDir):
+    os.makedirs(OutDir)
+else:
+    print "\n\n Warning: ******* Check out %s directory and make sure it is empty *******\n\n"%OutDir
+
 
 for proc in SampleList:
 
@@ -110,6 +115,10 @@ outF.write("\n\n python plot_tt_category.py \n\n\n\n")
 ####################################################
 #Location of the output Z Shape Up
 OutDir='ZShapeUp'
+if not os.path.exists(OutDir):
+    os.makedirs(OutDir)
+else:
+    print "\n\n Warning: ******* Check out %s directory and make sure it is empty *******\n\n"%OutDir
 
 for proc in SampleList:
     
@@ -137,6 +146,10 @@ outF.write("\n\n hadd -f  %s %s/ZTT.root %s/ZJ.root %s/ZL.root \n\n\n\n"%(HaddNa
 ####################################################
 #Location of the output Z Shape Down
 OutDir='ZShapeDown'
+if not os.path.exists(OutDir):
+    os.makedirs(OutDir)
+else:
+    print "\n\n Warning: ******* Check out %s directory and make sure it is empty *******\n\n"%OutDir
 
 for proc in SampleList:
     
@@ -169,4 +182,6 @@ outF.write("\n\n hadd -f  %s %s/ZTT.root %s/ZJ.root %s/ZL.root \n\n\n\n"%(HaddNa
 FinallHaddName='htt_tt.inputs-sm-13TeV-2D.root'
 
 outF.write("\n\n hadd -f %s    %s %s %s \n\n\n\n"%(FinallHaddName,HaddNameNominal,HaddNameZShapeUp,HaddNameZShapeDown))
+
+print "\n\n Good Job! All you need to do is to run the OneRun.txt \n\n"
  
