@@ -85,27 +85,27 @@ The Final Grand Hadded file here is called 'htt_tt.inputs-sm-13TeV-2D.root'. Thi
 
 # craete a shape directory 
 
-mkdir -p shapes/USCMS
+    mkdir -p shapes/USCMS
 
 and copy the 'htt_tt.inputs-sm-13TeV-2D.root' file from last step in the shapes/USCMS directory
 
 
 # compile
 
-scram b -j 8
+    scram b -j 8
 
 (Note: whenever you change .cc or .cpp or .cml file you need to compile)
 
 # creating datacards
 
-cd bin 
+    cd bin 
 
 MorphingSM2017 --output_folder="TestJune26" --postfix="-2D" --control_region=0 --manual_rebin=false --real_data=false --mm_fit=false --ttbar_fit=false
 
 
 # Now you have to add the autoMCStats at the end of the each datacards
 
-sh _do_mc_Stat.sh  output/TestJune26
+    sh _do_mc_Stat.sh  output/TestJune26
 
 # Building the workspaces:
 
@@ -149,31 +149,31 @@ sh _do_mc_Stat.sh  output/TestJune26
 
 # postfit plots
 
-  PostFitShapes -o postfit_shapes.root -m 125 -f mlfit.root:fit_s --postfit --sampling --print -d cmb/125/combined.txt.cmb
+    PostFitShapes -o postfit_shapes.root -m 125 -f mlfit.root:fit_s --postfit --sampling --print -d cmb/125/combined.txt.cmb
 
 
 
 # Computing the expected significance:
 
-[PreFit Asimov]combine -M ProfileLikelihood --significance cmb/125/workspace.root -t -1 --expectSignal=1
+    [PreFit Asimov]combine -M ProfileLikelihood --significance cmb/125/workspace.root -t -1 --expectSignal=1
 
-[PostFit Asimov]combine -M ProfileLikelihood --significance cmb/125/workspace.root -t -1 --toysFrequentist --expectSignal 1
+    [PostFit Asimov]combine -M ProfileLikelihood --significance cmb/125/workspace.root -t -1 --toysFrequentist --expectSignal 1
 
-[PostFit]combine -M ProfileLikelihood --significance cmb/125/workspace.root 
+    [PostFit]combine -M ProfileLikelihood --significance cmb/125/workspace.root 
 
 
 # Descripton of running the likelihood 
-cp ../../../scripts/plot1DScan.py .
+    cp ../../../scripts/plot1DScan.py .
 
-cp ../../../scripts/texName.json .
+    cp ../../../scripts/texName.json .
 
-combine -M MultiDimFit -m 125 --algo grid --points 101 --rMin 0 --rMax 10 cmb/125/workspace.root -n nominal -t -1 --expectSignal
+    combine -M MultiDimFit -m 125 --algo grid --points 101 --rMin 0 --rMax 10 cmb/125/workspace.root -n nominal -t -1 --expectSignal
 
-combine -M MultiDimFit --algo none --rMin 0 --rMax 10 cmb/125/workspace.root -m 125 -n bestfit -t -1 --expectSignal --saveWorkspace
+    combine -M MultiDimFit --algo none --rMin 0 --rMax 10 cmb/125/workspace.root -m 125 -n bestfit -t -1 --expectSignal --saveWorkspace
 
-combine -M MultiDimFit --algo grid --points 101 --rMin 0 --rMax 10 -m 125 -n stat higgsCombinebestfit.MultiDimFit.mH125.root -t -1 --expectSignal --snapshotName MultiDimFit --freezeParameters all --fastScan
+    combine -M MultiDimFit --algo grid --points 101 --rMin 0 --rMax 10 -m 125 -n stat higgsCombinebestfit.MultiDimFit.mH125.root -t -1 --expectSignal --snapshotName MultiDimFit --freezeParameters all --fastScan
 
-python ./plot1DScan.py --main higgsCombinenominal.MultiDimFit.mH125.root --POI r -o cms_output_freeze_All --others 'higgsCombinestat.MultiDimFit.mH125.root:Freeze all:2' --breakdown syst,stat
+    python ./plot1DScan.py --main higgsCombinenominal.MultiDimFit.mH125.root --POI r -o cms_output_freeze_All --others 'higgsCombinestat.MultiDimFit.mH125.root:Freeze all:2' --breakdown syst,stat
 
 
 
