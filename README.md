@@ -20,66 +20,66 @@ Once the above script is run and .txt file is generated. Please check the contec
 
 # running the .txt script
 
-source  OneRun.txt
+    source  OneRun.txt
 
 
 The Final Grand Hadded file here is called 'htt_tt.inputs-sm-13TeV-2D.root'. This root file will be the input the limit calculation business! You need to copy it in the the '/shapes/USCMS/' directory in the combine Harvester
 
 
 # Link to the CombineHarvester twiki:
-[CombineHarvester twiki](http://cms-analysis.github.io/CombineHarvester/index.html)
+   [CombineHarvester twiki](http://cms-analysis.github.io/CombineHarvester/index.html)
 
 
 # Checkout the CombineHarvester  [You need to do it once]
 
-export SCRAM_ARCH=slc6_amd64_gcc530
+    export SCRAM_ARCH=slc6_amd64_gcc530
 
-scram project CMSSW CMSSW_8_1_0
+    scram project CMSSW CMSSW_8_1_0
 
-cd CMSSW_8_1_0/src
+    cd CMSSW_8_1_0/src
 
-cmsenv
+    cmsenv
 
-git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
+    git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
+    
+    // IMPORTANT: Checkout the recommended tag on the link above  (for the time being the master is fine)
 
-// IMPORTANT: Checkout the recommended tag on the link above  (for the time being the master is fine)
+    git clone https://github.com/cms-analysis/CombineHarvester.git CombineHarvester
 
-git clone https://github.com/cms-analysis/CombineHarvester.git CombineHarvester
-
-scram b -j 8
+    scram b -j 8
 
 
-cd CombineHarvester
+    cd CombineHarvester
 
 
 # Just clone 2016 to make 2017
 
-cp -r  HTTSM2016 HTTSM2017
+    cp -r  HTTSM2016 HTTSM2017
 
 
 # put the new .cc file in the /src/ directory
 
-wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/src/HttSystematics_SMRun2.cc
+    wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/src/HttSystematics_SMRun2.cc
 
-mv HttSystematics_SMRun2.cc   src/
+    mv HttSystematics_SMRun2.cc   src/
 
 # put the new .cpp file and .xml in the /bin/ directory
 
-wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/bin/MorphingSM2017.cpp
+    wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/bin/MorphingSM2017.cpp
 
-mv  MorphingSM2017.cpp bin/ 
+    mv  MorphingSM2017.cpp bin/ 
 
 
-wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/bin/BuildFile.xml 
+    wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/bin/BuildFile.xml 
 
-mv  BuildFile.xml   bin/
+    mv  BuildFile.xml   bin/
 
 
 # This small script is needed to add autoMCStats  at the end of datacard:
 
-wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/bin/_do_mc_Stat.sh
-
-mv  _do_mc_Stat.sh   bin/
+    wget https://raw.githubusercontent.com/abdollah110/SMHTT2017/master/LIMIT_Calculation/bin/_do_mc_Stat.sh
+    
+    mv  _do_mc_Stat.sh   bin/
 
 
 
@@ -109,47 +109,47 @@ sh _do_mc_Stat.sh  output/TestJune26
 
 # Building the workspaces:
 
-cd output/TestJune26
+    cd output/TestJune26
 
-combineTool.py -M T2W -i {cmb,tt}/* -o workspace.root --parallel 18
+    combineTool.py -M T2W -i {cmb,tt}/* -o workspace.root --parallel 18
 
-(note:  cmb is just the combbination of all final state. For the time being it will be identical to tt)
+    (note:  cmb is just the combbination of all final state. For the time being it will be identical to tt)
 
 
 # Calculating limits:
-combineTool.py -M Asymptotic -d */*/workspace.root --there -n .limit --parallel 18
+    combineTool.py -M Asymptotic -d */*/workspace.root --there -n .limit --parallel 18
 
 
 # Collect the output:
 
-combineTool.py -M CollectLimits */*/*.limit.* --use-dirs -o limits.json
+    combineTool.py -M CollectLimits */*/*.limit.* --use-dirs -o limits.json
 
 
-# Plotting the limit:
+# Plotting the limit: [not for now. It requires several H mass points]
 
 
-python ../../../plotLimits_SM2.py limits_{cmb,em,et,mt,tt}.json:exp0 --auto-style --cms-sub Preliminary  -o lim_compare
-python ../../../plotLimits_SM2.py limits_cmb.json  --auto-style --cms-sub Preliminary     -o lim_expected_cmb
-python ../../../plotLimits_SM2.py limits_tt.json  --auto-style --cms-sub Preliminary     -o lim_expected_tt
-python ../../../plotLimits_SM2.py limits_mt.json  --auto-style --cms-sub Preliminary     -o lim_expected_mt
-python ../../../plotLimits_SM2.py limits_et.json  --auto-style --cms-sub Preliminary     -o lim_expected_et
-python ../../../plotLimits_SM2.py limits_em.json  --auto-style --cms-sub Preliminary     -o lim_expected_em
+    python ../../../plotLimits_SM2.py limits_{cmb,em,et,mt,tt}.json:exp0 --auto-style --cms-sub Preliminary  -o lim_compare
+    python ../../../plotLimits_SM2.py limits_cmb.json  --auto-style --cms-sub Preliminary     -o lim_expected_cmb
+    python ../../../plotLimits_SM2.py limits_tt.json  --auto-style --cms-sub Preliminary     -o lim_expected_tt
+    python ../../../plotLimits_SM2.py limits_mt.json  --auto-style --cms-sub Preliminary     -o lim_expected_mt
+    python ../../../plotLimits_SM2.py limits_et.json  --auto-style --cms-sub Preliminary     -o lim_expected_et
+    python ../../../plotLimits_SM2.py limits_em.json  --auto-style --cms-sub Preliminary     -o lim_expected_em
 
 
 # run MaxLikelihoodFit
 
-combine -M MaxLikelihoodFit cmb/125/workspace.root --robustFit=1 --minimizerAlgoForMinos=Minuit2,Migrad  --rMin 0.5 --rMax 1.5 
+    combine -M MaxLikelihoodFit cmb/125/workspace.root --robustFit=1 --minimizerAlgoForMinos=Minuit2,Migrad  --rMin 0.5 --rMax 1.5 
 
 
 
 # making the pulls
 
-python ../../../../../HiggsAnalysis/CombinedLimit/test/diffNuisances.py  mlfit.root -A -a --stol 0.99 --stol 0.99 --vtol 99. --vtol2 99. -f text mlfit.root > mlfit.txt
+    python ../../../../../HiggsAnalysis/CombinedLimit/test/diffNuisances.py  mlfit.root -A -a --stol 0.99 --stol 0.99 --vtol 99. --vtol2 99. -f text mlfit.root > mlfit.txt
 
 
 # postfit plots
 
-PostFitShapes -o postfit_shapes.root -m 125 -f mlfit.root:fit_s --postfit --sampling --print -d cmb/125/combined.txt.cmb
+  PostFitShapes -o postfit_shapes.root -m 125 -f mlfit.root:fit_s --postfit --sampling --print -d cmb/125/combined.txt.cmb
 
 
 
