@@ -5,7 +5,9 @@ The main code where the analysis, categorization, .. are done is FinalSelection2
 
 This code is complied using the following command:
 
-./Make.sh FinalSelection2D_relaxedFR.cc   and the executable is called 'FinalSelection2D_relaxedFR.exe'. If there is any error, no executable will be produced.
+./Make.sh FinalSelection2D_relaxedFR.cc   
+
+and the executable is called 'FinalSelection2D_relaxedFR.exe'. If there is any error, no executable will be produced.
 
 
 To run the nominal and shape uncertainties, one should edit the following python script:
@@ -31,12 +33,19 @@ The Final Grand Hadded file here is called 'htt_tt.inputs-sm-13TeV-2D.root'. Thi
 # Checkout the CombineHarvester  [You need to do it once]
 
 export SCRAM_ARCH=slc6_amd64_gcc530
+
 scram project CMSSW CMSSW_8_1_0
+
 cd CMSSW_8_1_0/src
+
 cmsenv
+
 git clone https://github.com/cms-analysis/HiggsAnalysis-CombinedLimit.git HiggsAnalysis/CombinedLimit
-# IMPORTANT: Checkout the recommended tag on the link above  (for the time being the master is fine)
+
+// IMPORTANT: Checkout the recommended tag on the link above  (for the time being the master is fine)
+
 git clone https://github.com/cms-analysis/CombineHarvester.git CombineHarvester
+
 scram b -j 8
 
 
@@ -44,6 +53,7 @@ cd CombineHarvester
 
 
 # Just clone 2016 to make 2017
+
 cp -r  HTTSM2016 HTTSM2017
 
 
@@ -100,6 +110,7 @@ sh _do_mc_Stat.sh  output/TestJune26
 # Building the workspaces:
 
 cd output/TestJune26
+
 combineTool.py -M T2W -i {cmb,tt}/* -o workspace.root --parallel 18
 
 (note:  cmb is just the combbination of all final state. For the time being it will be identical to tt)
@@ -144,7 +155,9 @@ PostFitShapes -o postfit_shapes.root -m 125 -f mlfit.root:fit_s --postfit --samp
 # Computing the expected significance:
 
 [PreFit Asimov]combine -M ProfileLikelihood --significance cmb/125/workspace.root -t -1 --expectSignal=1
+
 [PostFit Asimov]combine -M ProfileLikelihood --significance cmb/125/workspace.root -t -1 --toysFrequentist --expectSignal 1
+
 [PostFit]combine -M ProfileLikelihood --significance cmb/125/workspace.root 
 
 
