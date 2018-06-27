@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
     
     float sysCode=0;
     if (argc > 1) {
-        sysCode = atof(argv[5]);
+        tes = atof(argv[5]);
     }
     
     TFile *f_Double = new TFile(input.c_str());
@@ -296,30 +296,30 @@ int main(int argc, char** argv) {
     int  binnum1 = sizeof(bins1)/sizeof(Float_t) - 1;
     
     // Categories
-    //TH1F* ojet = new TH2F ("ojet", "ojet", 100, -0.10, 0.10); ojet->Sumw2();
-    //TH1F* boosted = new TH2F ("boosted", "boosted", 100, -0.10, 0.10); boosted->Sumw2();
-    //TH1F* vbf = new TH2F ("vbf", "vbf", 100, -0.10, 0.10); vbf->Sumw2();
+    //TH1F* ojet = new TH1F ("ojet", "ojet", 100, -0.10, 0.10); ojet->Sumw2();
+    //TH1F* boosted = new TH1F ("boosted", "boosted", 100, -0.10, 0.10); boosted->Sumw2();
+    //TH1F* vbf = new TH1F ("vbf", "vbf", 100, -0.10, 0.10); vbf->Sumw2();
     
-    std::vector<TH2F*> h0_OS;
-    std::vector<TH2F*> h0_SS;
-    std::vector<TH2F*> h0_AIOS;
-    std::vector<TH2F*> h0_AISS;
-    std::vector<TH2F*> h1_OS;
-    std::vector<TH2F*> h1_SS;
-    std::vector<TH2F*> h1_AIOS;
-    std::vector<TH2F*> h1_AISS;
-    std::vector<TH2F*> h2_OS;
-    std::vector<TH2F*> h2_SS;
-    std::vector<TH2F*> h2_AIOS;
-    std::vector<TH2F*> h2_AISS;
-    std::vector<TH2F*> h3_OS;
-    std::vector<TH2F*> h3_SS;
-    std::vector<TH2F*> h3_AIOS;
-    std::vector<TH2F*> h3_AISS;
-    std::vector<TH2F*> h_OS;
-    std::vector<TH2F*> h_SS;
-    std::vector<TH2F*> h_AIOS;
-    std::vector<TH2F*> h_AISS;
+    std::vector<TH1F*> h0_OS;
+    std::vector<TH1F*> h0_SS;
+    std::vector<TH1F*> h0_AIOS;
+    std::vector<TH1F*> h0_AISS;
+    std::vector<TH1F*> h1_OS;
+    std::vector<TH1F*> h1_SS;
+    std::vector<TH1F*> h1_AIOS;
+    std::vector<TH1F*> h1_AISS;
+    std::vector<TH1F*> h2_OS;
+    std::vector<TH1F*> h2_SS;
+    std::vector<TH1F*> h2_AIOS;
+    std::vector<TH1F*> h2_AISS;
+    std::vector<TH1F*> h3_OS;
+    std::vector<TH1F*> h3_SS;
+    std::vector<TH1F*> h3_AIOS;
+    std::vector<TH1F*> h3_AISS;
+    std::vector<TH1F*> h_OS;
+    std::vector<TH1F*> h_SS;
+    std::vector<TH1F*> h_AIOS;
+    std::vector<TH1F*> h_AISS;
     
     
     TString postfix="";
@@ -338,44 +338,44 @@ int main(int argc, char** argv) {
         ostringstream HNS2OS; HNS2OS << "h2_OS" << k;
         ostringstream HNS3OS; HNS3OS << "h3_OS" << k;
         ostringstream HNSOS; HNS2OS << "h_OS" << k;
-        h0_OS.push_back(new TH2F (HNS0OS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h0_OS[k]->Sumw2();
-        h1_OS.push_back(new TH2F (HNS1OS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h1_OS[k]->Sumw2();
-        h2_OS.push_back(new TH2F (HNS2OS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h2_OS[k]->Sumw2();
-        h3_OS.push_back(new TH2F (HNS3OS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h3_OS[k]->Sumw2();
-        h_OS.push_back(new TH2F (HNSOS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h_OS[k]->Sumw2();
+        h0_OS.push_back(new TH1F (HNS0OS.str().c_str(),"diTauMa",binnum0,bins0)); h0_OS[k]->Sumw2();
+        h1_OS.push_back(new TH1F (HNS1OS.str().c_str(),"diTauMa",binnum0,bins0)); h1_OS[k]->Sumw2();
+        h2_OS.push_back(new TH1F (HNS2OS.str().c_str(),"diTauMa",binnum0,bins0)); h2_OS[k]->Sumw2();
+        h3_OS.push_back(new TH1F (HNS3OS.str().c_str(),"diTauMa",binnum0,bins0)); h3_OS[k]->Sumw2();
+        h_OS.push_back(new TH1F (HNSOS.str().c_str(),"diTauMa",binnum0,bins0)); h_OS[k]->Sumw2();
         
         ostringstream HNS0SS; HNS0OS << "h0_SS" << k;
         ostringstream HNS1SS; HNS1OS << "h1_SS" << k;
         ostringstream HNS2SS; HNS2OS << "h2_SS" << k;
         ostringstream HNS3SS; HNS2OS << "h3_SS" << k;
         ostringstream HNSSS; HNSOS << "h_SS" << k;
-        h0_SS.push_back(new TH2F (HNS0SS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h0_SS[k]->Sumw2();
-        h1_SS.push_back(new TH2F (HNS1SS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h1_SS[k]->Sumw2();
-        h2_SS.push_back(new TH2F (HNS2SS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h2_SS[k]->Sumw2();
-        h3_SS.push_back(new TH2F (HNS3SS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h3_SS[k]->Sumw2();
-        h_SS.push_back(new TH2F (HNSSS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h_SS[k]->Sumw2();
+        h0_SS.push_back(new TH1F (HNS0SS.str().c_str(),"diTauMa",binnum1,bins1)); h0_SS[k]->Sumw2();
+        h1_SS.push_back(new TH1F (HNS1SS.str().c_str(),"diTauMa",binnum1,bins1)); h1_SS[k]->Sumw2();
+        h2_SS.push_back(new TH1F (HNS2SS.str().c_str(),"diTauMa",binnum1,bins1)); h2_SS[k]->Sumw2();
+        h3_SS.push_back(new TH1F (HNS3SS.str().c_str(),"diTauMa",binnum1,bins1)); h3_SS[k]->Sumw2();
+        h_SS.push_back(new TH1F (HNSSS.str().c_str(),"diTauMa",binnum1,bins1)); h_SS[k]->Sumw2();
         
         ostringstream HNS0AIOS; HNS0AIOS << "h0_AIOS" << k;
         ostringstream HNS1AIOS; HNS1AIOS << "h1_AIOS" << k;
         ostringstream HNS2AIOS; HNS2AIOS << "h2_AIOS" << k;
         ostringstream HNS3AIOS; HNS3AIOS << "h3_AIOS" << k;
         ostringstream HNSAIOS; HNSAIOS << "h_AIOS" << k;
-        h0_AIOS.push_back(new TH2F (HNS0AIOS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h0_AIOS[k]->Sumw2();
-        h1_AIOS.push_back(new TH2F (HNS1AIOS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h1_AIOS[k]->Sumw2();
-        h2_AIOS.push_back(new TH2F (HNS2AIOS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h2_AIOS[k]->Sumw2();
-        h3_AIOS.push_back(new TH2F (HNS3AIOS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h3_AIOS[k]->Sumw2();
-        h_AIOS.push_back(new TH2F (HNSAIOS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h_AIOS[k]->Sumw2();
+        h0_AIOS.push_back(new TH1F (HNS0AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h0_AIOS[k]->Sumw2();
+        h1_AIOS.push_back(new TH1F (HNS1AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h1_AIOS[k]->Sumw2();
+        h2_AIOS.push_back(new TH1F (HNS2AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h2_AIOS[k]->Sumw2();
+        h3_AIOS.push_back(new TH1F (HNS3AIOS.str().c_str(),"diTauMa",binnum0,bins0)); h3_AIOS[k]->Sumw2();
+        h_AIOS.push_back(new TH1F (HNSAIOS.str().c_str(),"diTauMa",binnum0,bins0)); h_AIOS[k]->Sumw2();
         
         ostringstream HNS0AISS; HNS0AISS << "h0_AISS" << k;
         ostringstream HNS1AISS; HNS1AISS << "h1_AISS" << k;
         ostringstream HNS2AISS; HNS2AISS << "h2_AISS" << k;
         ostringstream HNS3AISS; HNS3AISS << "h3_AISS" << k;
         ostringstream HNSAISS; HNSAISS << "h_AISS" << k;
-        h0_AISS.push_back(new TH2F (HNS0AISS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h0_AISS[k]->Sumw2();
-        h1_AISS.push_back(new TH2F (HNS1AISS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h1_AISS[k]->Sumw2();
-        h2_AISS.push_back(new TH2F (HNS2AISS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h2_AISS[k]->Sumw2();
-        h3_AISS.push_back(new TH2F (HNS3AISS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h3_AISS[k]->Sumw2();
-        h_AISS.push_back(new TH2F (HNSAISS.str().c_str(),"diTauMa",binnum0,bins0,binnum1,bins1)); h_AISS[k]->Sumw2();
+        h0_AISS.push_back(new TH1F (HNS0AISS.str().c_str(),"diTauMa",binnum1,bins1)); h0_AISS[k]->Sumw2();
+        h1_AISS.push_back(new TH1F (HNS1AISS.str().c_str(),"diTauMa",binnum1,bins1)); h1_AISS[k]->Sumw2();
+        h2_AISS.push_back(new TH1F (HNS2AISS.str().c_str(),"diTauMa",binnum1,bins1)); h2_AISS[k]->Sumw2();
+        h3_AISS.push_back(new TH1F (HNS3AISS.str().c_str(),"diTauMa",binnum1,bins1)); h3_AISS[k]->Sumw2();
+        h_AISS.push_back(new TH1F (HNSAISS.str().c_str(),"diTauMa",binnum1,bins1)); h_AISS[k]->Sumw2();
     }
     /*
      ScaleFactor * myScaleFactor_trgMu23 = new ScaleFactor();
@@ -535,7 +535,7 @@ int main(int argc, char** argv) {
         // Z pt reweighting for DY events
         if (sample=="DY" || sample=="EWKZLL" || sample=="EWKZNuNu" || sample=="ZTT" || sample=="ZLL" || sample=="ZL" || sample=="ZJ"){
             float zpt_corr=histZ->GetBinContent(histZ->GetXaxis()->FindBin(genM),histZ->GetYaxis()->FindBin(genpT));
-            if (std::abs(sysCode)!=10) //nominal
+            if (std::abs(tes)!=10) //nominal
             aweight=aweight*zpt_corr;
             else if (sysCode==10) // up
             aweight=aweight*(1+1.10*(zpt_corr-1));
@@ -548,7 +548,7 @@ int main(int argc, char** argv) {
         if (pttop1>400) pttop1=400;
         float pttop2=pt_top2;
         if (pttop2>400) pttop2=400;
-        if ((sample=="TTL" or sample=="TTJ" or sample=="TTT" or sample=="TT") && std::abs(sysCode)!=11) aweight*=sqrt(exp(0.0615-0.0005*pttop1)*exp(0.0615-0.0005*pttop2));
+        if ((sample=="TTL" or sample=="TTJ" or sample=="TTT" or sample=="TT") && std::abs(tes)!=11) aweight*=sqrt(exp(0.0615-0.0005*pttop1)*exp(0.0615-0.0005*pttop2));
         //aweight*=sqrt(exp(0.156-0.00137*pttop1)*exp(0.156-0.00137*pttop2));
         if ((sample=="TTL" or sample=="TTJ" or sample=="TTT" or sample=="TT") && sysCode==11) aweight*=(1+2*(sqrt(exp(0.0615-0.0005*pttop1)*exp(0.0615-0.0005*pttop2))-1));
         
@@ -683,57 +683,52 @@ int main(int argc, char** argv) {
             //cout << "weight: " << weight2*aweight << endl;
             
             //            float var = Higgs.Pt(); //Variable to plot
-            float varX = (mytau2+mytau1).M(); //Variable to plot
-            
-            float varY = (mytau2+mytau1).M(); //Variable to plot
-            
-            
-            
+            float var = (mytau2+mytau1).M(); //Variable to plot
             if (selection){
                 if (is_0jet && signalRegion && charge1*charge2<0)
-                h0_OS[k]->Fill(varX,varY,weight2*aweight);
+                h0_OS[k]->Fill(var,weight2*aweight);
                 if (is_boosted && signalRegion && charge1*charge2<0)
-                h1_OS[k]->Fill(varX,varY,weight2*aweight);
+                h1_OS[k]->Fill(var,weight2*aweight);
                 if (is_VBF && signalRegion && charge1*charge2<0)
-                h2_OS[k]->Fill(varX,varY,weight2*aweight);
+                h2_OS[k]->Fill(var,weight2*aweight);
                 if (is_VH && signalRegion && charge1*charge2<0)
-                h3_OS[k]->Fill(varX,varY,weight2*aweight);
+                h3_OS[k]->Fill(var,weight2*aweight);
                 if (signalRegion && charge1*charge2<0)
-                h_OS[k]->Fill(varX,varY,weight2*aweight);
+                h_OS[k]->Fill(var,weight2*aweight);
                 
                 if (is_0jet && signalRegion && charge1*charge2>0)
-                h0_SS[k]->Fill(varX,varY,weight2*aweight);
+                h0_SS[k]->Fill(var,weight2*aweight);
                 if (is_boosted && signalRegion && charge1*charge2>0)
-                h1_SS[k]->Fill(varX,varY,weight2*aweight);
+                h1_SS[k]->Fill(var,weight2*aweight);
                 if (is_VBF && signalRegion && charge1*charge2>0)
-                h2_SS[k]->Fill(varX,varY,weight2*aweight);
+                h2_SS[k]->Fill(var,weight2*aweight);
                 if (is_VH && signalRegion && charge1*charge2>0)
-                h3_SS[k]->Fill(varX,varY,weight2*aweight);
+                h3_SS[k]->Fill(var,weight2*aweight);
                 if (signalRegion && charge1*charge2>0)
-                h_SS[k]->Fill(varX,varY,weight2*aweight);
+                h_SS[k]->Fill(var,weight2*aweight);
                 
                 if (is_0jet && charge1*charge2<0 && aiRegion)
-                h0_AIOS[k]->Fill(varX,varY,weight2*aweight);
+                h0_AIOS[k]->Fill(var,weight2*aweight);
                 if (is_boosted && charge1*charge2<0 && aiRegion)
-                h1_AIOS[k]->Fill(varX,varY,weight2*aweight);
+                h1_AIOS[k]->Fill(var,weight2*aweight);
                 if (is_VBF && charge1*charge2<0 && aiRegion)
-                h2_AIOS[k]->Fill(varX,varY,weight2*aweight);
+                h2_AIOS[k]->Fill(var,weight2*aweight);
                 if (is_VH && charge1*charge2<0 && aiRegion)
-                h3_AIOS[k]->Fill(varX,varY,weight2*aweight);
+                h3_AIOS[k]->Fill(var,weight2*aweight);
                 if (charge1*charge2<0 && aiRegion)
-                h_AIOS[k]->Fill(varX,varY,weight2*aweight);
+                h_AIOS[k]->Fill(var,weight2*aweight);
                 
                 
                 if (is_0jet && charge1*charge2>0 && aiRegion)
-                h0_AISS[k]->Fill(varX,varY,weight2*aweight);
+                h0_AISS[k]->Fill(var,weight2*aweight);
                 if (is_boosted && charge1*charge2>0 && aiRegion)
-                h1_AISS[k]->Fill(varX,varY,weight2*aweight);
+                h1_AISS[k]->Fill(var,weight2*aweight);
                 if (is_VBF && charge1*charge2>0 && aiRegion)
-                h2_AISS[k]->Fill(varX,varY,weight2*aweight);
+                h2_AISS[k]->Fill(var,weight2*aweight);
                 if (is_VH && charge1*charge2>0 && aiRegion)
-                h3_AISS[k]->Fill(varX,varY,weight2*aweight);
+                h3_AISS[k]->Fill(var,weight2*aweight);
                 if (charge1*charge2>0 && aiRegion)
-                h_AISS[k]->Fill(varX,varY,weight2*aweight);
+                h_AISS[k]->Fill(var,weight2*aweight);
             }
         }
     } // end of loop over events
