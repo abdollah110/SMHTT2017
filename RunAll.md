@@ -5,4 +5,4 @@ Here is the code
 https://github.com/uwcms/FinalStateAnalysis/tree/miniAOD_8_0_25/NtupleTools/test
 
 
-cmsRun make_ntuples_cfg.py channels="em,et,mt,tt,ttt,mmt" isMC=1 skipMET=1 maxEvents=1000 paramFile=../python/parameters/ztt.py runningLocal=1 fullJES=0 inputFiles=file:root://cms-xrd-global.cern.ch//store/mc/RunIIFall17MiniAOD/TTTo2L2Nu_TuneCP5_13TeV-powheg-pythia8/MINIAODSIM/94X_mc2017_realistic_v10-v2/60000/1688A03F-E9EF-E711-9A58-008CFAF356FA.root
+cmsRun make_ntuples_cfg.py channels="mt" isMC=0 isEmbedded=1 skipMET=1 maxEvents=100 paramFile=../python/parameters/ztt.py runningLocal=1 fullJES=0 inputFiles=file:root://cms-xrd-global.cern.ch//store/user/jbechtel/MuTau_data_2016_CMSSW826_freiburg/TauEmbedding_MuTau_data_2016_CMSSW826_Run2016B/92/merged_2191.root
