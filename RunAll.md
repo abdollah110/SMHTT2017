@@ -35,7 +35,11 @@
 
 # Step 3 (Adding SVFit)
 
-  here is the code: https://github.com/dykim1/SubmitSVFit
+  here is the code: https://github.com/tmitchel/SubmitSVFit.git
+  
+  git checkout updateLT
+  
+  [also comment a line in the destructor of the ]
   
   here is my code: /nfs_scratch/abdollah/SVFit/CMSSW_9_4_4/src
 
