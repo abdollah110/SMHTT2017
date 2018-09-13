@@ -17,11 +17,35 @@
 
 # Step 2 (Skimming FSA ntuples)
 
-
+  
+  here is my code in /afs:  /afs/hep.wisc.edu/home/abdollah/Codes/Embed/CMSSW_8_0_26_patch1/src/SMHTT2016/mt/Skim
+  and the code in nfs_scrach=  
+  
   ### 2-a) run locally
 
-
+  ./Make skim_mt.cc
+  ./skim_mt.exe mc muB_0_422.root /hdfs/store/user/abdollah/MiniAOD_Test/EmbeddingRun2016B-v2/make_ntuples_cfg-merged_880.root 0
 
 
    ### 2-b) submit condor
+
+
+
+
+
+# Step 3 (Adding SVFit)
+
+  here is the code: https://github.com/dykim1/SubmitSVFit
+  
+  here is my code: /nfs_scratch/abdollah/SVFit/CMSSW_9_4_4/src
+
+  ### 3-a) run locally
+  
+   cd /nfs_scratch/abdollah/SVFit/CMSSW_9_4_4/ROOT/bin
+   SVFitStandAloneFSATauDM inputFile=~/testcoolInputFile.root newFile=tmpOut.root doES=1 isWJets=0 metType=-1 
+   
+   
+
+  ### 3-b) submit condor
+
 
