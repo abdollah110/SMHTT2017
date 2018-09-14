@@ -11,7 +11,7 @@
 
    ### 1-b) submit condor
    
-   To submit via condor
+   To submit via condor I have prepared a script which run on the FSA ntuples and for each processes (i.e. 2016F Etau dataset), bunch them in group of 100 jobs
 
 
 
