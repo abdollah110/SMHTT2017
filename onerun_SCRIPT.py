@@ -78,7 +78,8 @@ else:
 for proc in SampleList:
 
     # Run on all processes
-    outF.write("\n ./FinalSelection2D_relaxedFR.exe %s/%s %s/%s %s %s %d"%(InputDirectory,proc[1],OutDir,proc[2],proc[3],proc[4],0))
+    if proc[0]=='Data':
+        outF.write("\n ./FinalSelection2D_relaxedFR.exe %s/%s %s/%s %s %s %d"%(InputDirectory,proc[1],OutDir,proc[2],proc[3],proc[4],0))
 
 
 # hadd data samples

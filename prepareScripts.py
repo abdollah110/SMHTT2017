@@ -1,3 +1,12 @@
+
+submit_job.py MiniAOD_Embed_mt make_ntuples_cfg.py channels="mt" isMC=0 isEmbedded=1  paramFile=CMSSW_8_0_26_patch1/src/FinalStateAnalysis/NtupleTools/python/parameters/ztt.py --extra-usercode-files src/FinalStateAnalysis/NtupleTools/python/parameters --campaign-tag="MuTauFinalState-imputSep16DoubleMu_mirror_miniAOD-v2*" --samples "EmbeddingRun2016*"  -o do_submit_mt.sh
+
+submit_job.py MiniAOD_Embed_et make_ntuples_cfg.py channels="et" isMC=0 isEmbedded=1  paramFile=CMSSW_8_0_26_patch1/src/FinalStateAnalysis/NtupleTools/python/parameters/ztt.py --extra-usercode-files src/FinalStateAnalysis/NtupleTools/python/parameters --campaign-tag="ElTauFinalState-imputSep16DoubleMu_mirror_miniAOD-v2*" --samples "EmbeddingRun2016*"  -o do_submit_et.sh
+
+submit_job.py MiniAOD_Embed_tt make_ntuples_cfg.py channels="tt" isMC=0 isEmbedded=1  paramFile=CMSSW_8_0_26_patch1/src/FinalStateAnalysis/NtupleTools/python/parameters/ztt.py --extra-usercode-files src/FinalStateAnalysis/NtupleTools/python/parameters --campaign-tag="TauTauFinalState-imputSep16DoubleMu_mirror_miniAOD-v2*" --samples "EmbeddingRun2016*"  -o do_submit_tt.sh
+
+
+
 import os, sys, re
 
 # Usage python prepareScripts.py <name> <locationOfInputFiles> <outputDirectory>

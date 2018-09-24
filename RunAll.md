@@ -15,6 +15,11 @@
 
 
 
+
+
+
+# ############################################################################################################
+
 # Step 2 (Skimming FSA ntuples)
 
   
@@ -31,7 +36,7 @@
 
 
 
-
+# ############################################################################################################
 
 # Step 3 (Adding SVFit)
 
@@ -51,5 +56,28 @@
    
 
   ### 3-b) submit condor
+
+
+
+    python svFitSubmitter.py -dr -sd  /hdfs/store/user/abdollah/SkimEmbedded/tt -es=1 -iswj=0 -mt=-1   --jobName NewSVFit_tt
+    python svFitSubmitter.py -dr -sd  /hdfs/store/user/abdollah/SkimEmbedded/mt -es=1 -iswj=0 -mt=-1   --jobName NewSVFit_mt
+    python svFitSubmitter.py -dr -sd  /hdfs/store/user/abdollah/SkimEmbedded/et -es=1 -iswj=0 -mt=-1   --jobName NewSVFit_et
+
+# ############################################################################################################
+
+
+# Step 4 (Adding MELA)
+
+    here is the code:  https://github.com/dykim1/SubmitMELA (use Doyeing git repo to include all systematics)
+    here is my code: /nfs_scratch/abdollah/SVFit/CMSSW_9_4_4/src/SubmitMELA 
+
+### 4-a) run locally
+
+    produceMELABranches inputFile=DYJets2_11.root outputFile=test.root 
+
+
+### 4-b) submit condor
+    cd test/
+    python melaSubmitter.py -sd /hdfs/store/user/abdollah/NewSVFit_tt/tt/ --jobName Embed_Mela_tt
 
 
